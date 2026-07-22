@@ -13,7 +13,7 @@ env:
   VAR_PATH: .github/workflows/build_var.json
   SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
   EM_VERSION: 4.0.11
-  GODOT_VERSION: 4.5
+  GODOT_VERSION: 4.6.3
   EXPORT_NAME: ./demo/
 
 jobs:
@@ -68,7 +68,7 @@ jobs:
 
       - name: Web dependencies
         if: ${{ matrix.platform == 'web' }}
-        uses: mymindstorm/setup-emsdk@v14
+        uses: emscripten-core/setup-emsdk@v16
         with:
           version: ${{ env.EM_VERSION }}
           no-cache: true
@@ -129,7 +129,7 @@ jobs:
     needs: [build]
     if: github.ref == 'refs/heads/master'
     container:
-      image: barichello/godot-ci:4.5 # Ideally this would be ${GODOT_VERSION}, but Github Actions doesn't allow this! :(
+      image: barichello/godot-ci:4.6.3 # Ideally this would be ${GODOT_VERSION}, but Github Actions doesn't allow this! :(
 
     steps:
       - name: Checkout
